@@ -23,6 +23,7 @@ import {
    searchBooks,
 } from "../controller/book.controller.js";
 const router = express.Router();
+
 // user authentication and authorization
 router.post("/signup", signup);
 router.post("/login", login);
@@ -39,6 +40,7 @@ router.delete("/deleteBook/:isbn", deleteBook);
 router.post("/reserve-book", reserveBook);
 router.get("/search-books", searchBooks);
 router.delete("/del-book/:id", deleteBook);
+
 // Research Paper Routes
 router.post("/research-paper", upload.single("pdf"), researchPaper);
 router.get("/get-research-papers", getResearchPapers);
