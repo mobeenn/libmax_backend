@@ -1,16 +1,29 @@
 import express from "express";
 import { login, logout, signup } from "../controller/auth.controller.js";
-import { addEBook, getAllEBooks } from "../controller/ebook.controller.js";
+import {
+   addEBook,
+   delEBook,
+   getAllEBooks,
+} from "../controller/ebook.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 import {
    createAnnouncement,
    deleteAnnouncement,
    getAllAnnouncements,
 } from "../controller/announcement.controller.js";
-import { researchPaper } from "../controller/facultyResearch.controller.js";
-import { addBook, deleteBook, reserveBook } from "../controller/book.controller.js";
+import {
+   delPaper,
+   getResearchPapers,
+   researchPaper,
+} from "../controller/facultyResearch.controller.js";
+import {
+   addBook,
+   deleteBook,
+   reserveBook,
+   searchBooks,
+} from "../controller/book.controller.js";
 const router = express.Router();
-
+// user authentication and authorization
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
@@ -24,12 +37,16 @@ router.delete("/del-announcement/:id", deleteAnnouncement);
 router.post("/add-book", addBook);
 router.delete("/deleteBook/:isbn", deleteBook);
 router.post("/reserve-book", reserveBook);
-
+router.get("/search-books", searchBooks);
+router.delete("/del-book/:id", deleteBook);
 // Research Paper Routes
 router.post("/research-paper", upload.single("pdf"), researchPaper);
+router.get("/get-research-papers", getResearchPapers);
+router.delete("/del-paper/:paperId", delPaper);
 
 // E-Book Routes
 router.post("/ebook", upload.single("pdf"), addEBook);
 router.get("/get-all-e-books", getAllEBooks);
+router.delete("/del-ebook/:id", delEBook);
 
 export default router;

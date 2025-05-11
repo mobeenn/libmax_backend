@@ -126,3 +126,43 @@ export const researchPaper = async (req, res) => {
       });
    }
 };
+
+export const getResearchPapers = async (req, res) => {
+   try {
+      const papers = await FacultyResearch.find().select(
+         "title authors pdfUrl sdg category subject volumeIssue"
+      );
+
+      console.log("🚀 ~ getResearchPapers ~ papers:", papers);
+
+      res.status(200).json({
+         success: true,
+         data: papers,
+      });
+   } catch (err) {
+      console.log("Error:", err.message);
+      res.status(500).json({
+         success: false,
+         message: "Server error while getting research papers",
+      });
+   }
+};
+
+// delete book
+
+export const delPaper = async (req, res) => {
+   const { paperId } = req.params;
+   try {
+      const deletedPaper = await FacultyResearch.findByIdAndDelete(paperId);
+      console.log("🚀 ~ delPaper ~ deletedPaper:", deletedPaper);
+      if (!deletedPaper) {
+         return res
+            .status(404)
+            .json({ success: false, message: "paper not found" });
+      }
+      res.json({ success: true, message: "paper deleted successfully" });
+   } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+   }
+};
