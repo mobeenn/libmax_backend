@@ -65,3 +65,20 @@ export const getAllEBooks = async (req, res) => {
       });
    }
 };
+// del e book api
+export const delEBook = async (req, res) => {
+   try {
+      const { ebookId } = req.params;
+      const e_deletedBook = await EBook.findOneAndDelete({ ebookId });
+      if (!e_deletedBook) {
+         return res
+            .status(404)
+            .json({ success: false, message: "EBook not found." });
+      }
+      console.log("🚀 ~ delEBook ~ e_deletedBook:", e_deletedBook);
+      res.json({ success: true, message: "EBook deleted successfully." });
+   } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ success: false, message: "Server error." });
+   }
+};

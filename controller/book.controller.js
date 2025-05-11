@@ -1,6 +1,7 @@
 import Book from "../models/book.model.js";
 import User from "../models/user.model.js";
 
+// add book
 export const addBook = async (req, res) => {
    try {
       const {
@@ -61,10 +62,11 @@ export const addBook = async (req, res) => {
    }
 };
 
+// del book
 export const deleteBook = async (req, res) => {
    try {
-      const { isbn } = req.params;
-      const deletedBook = await Book.findOneAndDelete({ isbn });
+      const { bookId } = req.params;
+      const deletedBook = await Book.findOneAndDelete({ bookId });
       if (!deletedBook) {
          return res
             .status(404)
@@ -150,7 +152,7 @@ export const reserveBook = async (req, res) => {
 // // Search books API (GET request)
 export const searchBooks = async (req, res) => {
    try {
-      const { query } = req.query; // query from frontend
+      const { query } = req.query;
 
       if (!query) {
          return res

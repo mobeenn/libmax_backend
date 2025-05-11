@@ -147,3 +147,22 @@ export const getResearchPapers = async (req, res) => {
       });
    }
 };
+
+// delete book
+
+export const delPaper = async (req, res) => {
+   const { paperId } = req.params;
+   try {
+      const deletedPaper = await FacultyResearch.findByIdAndDelete(paperId);
+      console.log("🚀 ~ delPaper ~ deletedPaper:", deletedPaper);
+      if (!deletedPaper) {
+         return res
+            .status(404)
+            .json({ success: false, message: "paper not found" });
+      }
+      res.json({ success: true, message: "paper deleted successfully" });
+   } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+   }
+};
