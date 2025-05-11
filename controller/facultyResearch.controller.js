@@ -126,3 +126,24 @@ export const researchPaper = async (req, res) => {
       });
    }
 };
+
+export const getResearchPapers = async (req, res) => {
+   try {
+      const papers = await FacultyResearch.find().select(
+         "title authors pdfUrl sdg category subject volumeIssue"
+      );
+
+      console.log("🚀 ~ getResearchPapers ~ papers:", papers);
+
+      res.status(200).json({
+         success: true,
+         data: papers,
+      });
+   } catch (err) {
+      console.log("Error:", err.message);
+      res.status(500).json({
+         success: false,
+         message: "Server error while getting research papers",
+      });
+   }
+};

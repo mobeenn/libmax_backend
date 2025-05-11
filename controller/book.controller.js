@@ -100,6 +100,7 @@ export const deleteBook = async (req, res) => {
 //    }
 // };
 
+// reserve book and notification
 export const reserveBook = async (req, res) => {
    try {
       const { bookTitle, userId } = req.body;
@@ -140,6 +141,39 @@ export const reserveBook = async (req, res) => {
          message: "Book reserved successfully.",
          notifyAdmin: notificationMessage,
       });
+   } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ success: false, message: "Server error." });
+   }
+};
+
+// // Search books API (GET request)
+export const searchBooks = async (req, res) => {
+   try {
+      const { query } = req.query; // query from frontend
+
+      if (!query) {
+         return res
+            .status(400)
+            .json({ success: false, message: "Search query is required." });
+      }
+
+      // Searching books by title, authors, or category
+      const books = await Book.find({
+         $or: [
+            { title: { $regex: query, $options: "i" } },
+            { authors: { $regex: query, $options: "i" } },
+            { category: { $regex: query, $options: "i" } },
+         ],
+      });
+
+      if (books.length === 0) {
+         return res
+            .status(404)
+            .json({ success: false, message: "No books found." });
+      }
+
+      res.json({ success: true, books });
    } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ success: false, message: "Server error." });
