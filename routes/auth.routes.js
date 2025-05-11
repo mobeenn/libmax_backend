@@ -8,7 +8,7 @@ import {
    getAllAnnouncements,
 } from "../controller/announcement.controller.js";
 import { researchPaper } from "../controller/facultyResearch.controller.js";
-import { addBook, reserveBook } from "../controller/book.controller.js";
+import { addBook, deleteBook, reserveBook } from "../controller/book.controller.js";
 const router = express.Router();
 
 router.post("/signup", signup);
@@ -18,10 +18,11 @@ router.post("/logout", logout);
 // Announcement Routes
 router.post("/announcement", createAnnouncement);
 router.get("/show-announcement", getAllAnnouncements);
-router.delete("/del-announcement", deleteAnnouncement);
+router.delete("/del-announcement/:id", deleteAnnouncement);
 
 // Add Books Routes
 router.post("/add-book", addBook);
+router.delete("/deleteBook/:isbn", deleteBook);
 router.post("/reserve-book", reserveBook);
 
 // Research Paper Routes
