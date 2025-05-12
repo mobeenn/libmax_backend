@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"; // <--- ADD THIS
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.use(
    })
 );
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(cors()); //for search book api
 

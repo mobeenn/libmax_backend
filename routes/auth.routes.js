@@ -37,7 +37,11 @@ router.delete("/del-announcement/:id", deleteAnnouncement);
 
 // Add Books Routes
 router.post("/add-book", addBook);
+<<<<<<< HEAD
 router.get("/get-books", getBooks);
+=======
+//router.delete("/deleteBook/:isbn", deleteBook);
+>>>>>>> b38980bcd2ad556e7e12cd9c8f70169e2fe685e8
 router.post("/reserve-book", reserveBook);
 router.get("/search-books", searchBooks);
 router.delete("/del-book/:id", deleteBook);
