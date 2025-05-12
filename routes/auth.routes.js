@@ -19,6 +19,7 @@ import {
 import {
    addBook,
    deleteBook,
+   getBooks,
    reserveBook,
    searchBooks,
 } from "../controller/book.controller.js";
@@ -36,7 +37,7 @@ router.delete("/del-announcement/:id", deleteAnnouncement);
 
 // Add Books Routes
 router.post("/add-book", addBook);
-router.delete("/deleteBook/:isbn", deleteBook);
+router.get("/get-books", getBooks);
 router.post("/reserve-book", reserveBook);
 router.get("/search-books", searchBooks);
 router.delete("/del-book/:id", deleteBook);

@@ -168,6 +168,7 @@ export const searchBooks = async (req, res) => {
             { category: { $regex: query, $options: "i" } },
          ],
       });
+      console.log("🚀 ~ searchBooks ~ books:", books);
 
       if (books.length === 0) {
          return res
@@ -179,5 +180,23 @@ export const searchBooks = async (req, res) => {
    } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ success: false, message: "Server error." });
+   }
+};
+
+// get all books
+export const getBooks = async (req, res) => {
+   try {
+      const books = await Book.find().select("title authors isbn");
+      console.log("🚀 ~ getBooks ~ books:", books);
+      res.status(200).json({
+         success: true,
+         message: books,
+      });
+   } catch (error) {
+      res.status(500).json({
+         success: false,
+         message: "Failed to Fetch",
+         error: error.message,
+      });
    }
 };

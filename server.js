@@ -28,6 +28,8 @@ app.use(
 );
 app.use(express.json());
 
+app.use(cors()); //for search book api
+
 // Routes
 import authRoutes from "./routes/auth.routes.js";
 app.use("/api/auth", authRoutes);
